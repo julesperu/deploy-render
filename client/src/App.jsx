@@ -8,16 +8,16 @@ function App() {
       const response = await fetch(import.meta.env.VITE_BACK_URL);
 
       if (!response.ok) {
-        throw new Error("Erreur lors de la connexion au serveur");
+        throw new Error(`Erreur HTTP : ${response.status}`);
       }
 
       const data = await response.json();
 
-      console.log(data.message);
+      console.log(data);
 
       setMessage(data.message);
     } catch (error) {
-      console.error(error);
+      console.error("Erreur fetch :", error);
     }
   }
 
