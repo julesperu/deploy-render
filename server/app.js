@@ -4,14 +4,22 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+const PORT = process.env.PORT || 3000;
+
+app.use(
+  cors({
+    origin: process.env.FRONT_URL,
+  })
+);
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Bienvenue chez Express JS"
+    message: "Bienvenue chez Express JS",
   });
 });
 
-app.listen(3000, () => {
-  console.log("Le serveur tourne sur le port 3000");
+app.listen(PORT, () => {
+  console.log(`Le serveur tourne sur le port ${PORT}`);
 });

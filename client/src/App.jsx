@@ -4,12 +4,21 @@ function App() {
   const [message, setMessage] = useState("");
 
   async function fetchSERVER() {
-    const response = await fetch("http://localhost:3000");
-    const data = await response.json();
+    try {
+      const response = await fetch(import.meta.env.VITE_BACK_URL);
 
-    console.log(data.message);
+      if (!response.ok) {
+        throw new Error("Erreur lors de la connexion au serveur");
+      }
 
-    setMessage(data.message);
+      const data = await response.json();
+
+      console.log(data.message);
+
+      setMessage(data.message);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
